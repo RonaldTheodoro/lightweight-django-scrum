@@ -1,4 +1,5 @@
 from django.contrib.auth import get_user_model
+from django.views import generic
 
 from rest_framework import authentication, permissions, viewsets
 
@@ -6,6 +7,10 @@ from . import forms, models, serializers
 
 User = get_user_model()
 
+
+class Index(generic.TemplateView):
+    template_name = 'board/index.html'
+    
 
 class SprintViewSet(viewsets.ModelViewSet):
     queryset = models.Sprint.objects.order_by('end')

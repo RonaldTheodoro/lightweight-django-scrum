@@ -1,0 +1,60 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html class="no-js">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Scrum Board</title>
+
+    <link rel="stylesheet" href="{% static 'css/normalize.css' %}">
+    <link rel="stylesheet" href="{% static 'css/board.css' %}">
+
+    <script type="text/html" id="home-template">
+        <h1>Welcome to my Scrum Board Project!</h1>
+    </script>
+
+    <script type="text/html" id="login-template">
+        <form action="" method="POST">
+            <label for="id_username">Username</label>
+            <input id="id_username" type="text" name="username" maxlength="30" required/>
+            <label for="id_password">Password</label>
+            <input id="id_password" type="password" name="password" required/>
+            <button type="submit">Login</button>
+        </form>
+    </script>
+
+    <script type="text/html" id="header-template">
+        <span class="title">Scrum Board Example</span>
+        <% if (authenticated) { %>
+            <nav>
+                <a href="/" class="button">Your Sprints</a>
+                <a href="#" class="logout button">Logout</a>
+            </nav>
+        <% } %>
+    </script>
+</head>
+<body>
+
+    <div id="content"></div>
+
+    <script src="{% static 'vendor/jquery.js' %}"></script>
+    <script src="{% static 'vendor/underscore.js' %}"></script>
+    <script src="{% static 'vendor/backbone.js' %}"></script>
+
+    <script id="config" type="text/json">
+        {
+            "models": {},
+            "collections": {},
+            "views": {},
+            "router": null,
+            "apiRoot": "{% url 'api-root' %}",
+            "apiLogin": "{% url 'api-token' %}"
+        }
+    </script>
+    <script src="{% static 'js/app.js' %}"></script>
+    <script src="{% static 'js/models.js' %}"></script>
+    <script src="{% static 'js/views.js' %}"></script>
+    <script src="{% static 'js/router.js' %}"></script>
+</body>
+</html>

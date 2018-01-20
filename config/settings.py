@@ -45,6 +45,7 @@ INSTALLED_APPS = (
     'apps.board',
     # Third party apps
     'rest_framework',
+    'rest_framework.authtoken',
     'django_extensions',
     'test_without_migrations',
     'django_filters',
