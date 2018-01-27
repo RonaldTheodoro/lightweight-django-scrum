@@ -1,0 +1,8 @@
+dj-database-url==0.4.2
+django==1.11.9
+django-extensions==1.9.9
+django-filter==1.1.0
+django-model-utils==3.1.1
+django-test-without-migrations==0.6
+djangorestframework==3.7.7
+python-decouple==3.1
