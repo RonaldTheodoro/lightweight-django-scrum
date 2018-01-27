@@ -45,5 +45,8 @@ class Task(models.Model):
     due = models.DateField('due', blank=True, null=True)
     completed = models.DateField('completed', blank=True, null=True)
 
+    class Meta:
+        ordering = ['-id']
+
     def __str__(self):
         return self.name

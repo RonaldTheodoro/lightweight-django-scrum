@@ -24,7 +24,7 @@ button:hover, a.button:hover {
 }
 
 input, textarea {
-  background: : white;
+  background: white;
   font-family: inherit;
   border: 1px solid #ccc;
   box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
@@ -118,7 +118,7 @@ header nav a:hover {
 }
 
 .new-sprint{
-  border: : 1px solid #ccc;
+  border: 1px solid #ccc;
   padding: 20px;
 }
 /* Tarefas
@@ -133,7 +133,6 @@ header nav a:hover {
   -webkit-flex-flow: row wrap;
 
   align-items: stretch;
-  overflow: scroll;
 }
 
 .tasks .status{
