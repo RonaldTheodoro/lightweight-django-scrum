@@ -132,3 +132,7 @@ REST_FRAMEWORK = {
         'django_filters.rest_framework.DjangoFilterBackend',
     ),
 }
+
+# Tornado server
+WATERCOOLER_SERVER = config('WATERCOOLER_SERVER', default='localhost:8080')
+WATERCOOLER_SECURE = config('WATERCOOLER_SERVER', default='')

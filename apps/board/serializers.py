@@ -1,5 +1,6 @@
 from datetime import date
 
+from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.utils.translation import ugettext_lazy
 
@@ -7,7 +8,6 @@ from rest_framework import serializers
 from rest_framework.reverse import reverse
 
 from . import models
-
 
 User = get_user_model()
 
@@ -21,6 +21,9 @@ class SprintSerializer(serializers.ModelSerializer):
 
     def get_links(self, obj):
         request = self.context['request']
+
+        proto = 'wss' if settings.WATERCOOLER_SECURE else 'ws'
+        
         return {
             'self': reverse(
                 'sprint-detail',
@@ -31,11 +34,12 @@ class SprintSerializer(serializers.ModelSerializer):
                 'task-list',
                 request=request
             ) + f'?sprint={obj.pk}',
+            'channel': f'{proto}://{settings.WATERCOOLER_SERVER}/{obj.pk}'
         }
 
     def validate_end(self, value):
         new = not self.instance
-        changed = self.instance and self.instance.end != end_date
+        changed = self.instance and self.instance.end != value
 
         if (new or changed) and (value < date.today()):
             msg = ugettext_lazy('End date cannot be in the past')
