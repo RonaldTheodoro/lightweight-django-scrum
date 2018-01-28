@@ -3,6 +3,7 @@ from datetime import date
 from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.utils.translation import ugettext_lazy
+from django.core.signing import TimestampSigner
 
 from rest_framework import serializers
 from rest_framework.reverse import reverse
@@ -23,7 +24,10 @@ class SprintSerializer(serializers.ModelSerializer):
         request = self.context['request']
 
         proto = 'wss' if settings.WATERCOOLER_SECURE else 'ws'
-        
+        server = settings.WATERCOOLER_SERVER
+        signer = TimestampSigner(settings.WATERCOOLER_SECRET_KEY)
+        channel = signer.sign(obj.pk)
+
         return {
             'self': reverse(
                 'sprint-detail',
@@ -34,7 +38,7 @@ class SprintSerializer(serializers.ModelSerializer):
                 'task-list',
                 request=request
             ) + f'?sprint={obj.pk}',
-            'channel': f'{proto}://{settings.WATERCOOLER_SERVER}/{obj.pk}'
+            'channel': f'{proto}://{server}/socket?channel={channel}'
         }
 
     def validate_end(self, value):
@@ -78,7 +82,7 @@ class TaskSerializer(serializers.ModelSerializer):
             'assigned': None,
         }
         if obj.sprint_id:
-            links['assigned'] = reverse(
+            links['sprint'] = reverse(
                 'sprint-detail',
                 kwargs={'pk': obj.sprint_id},
                 request=request

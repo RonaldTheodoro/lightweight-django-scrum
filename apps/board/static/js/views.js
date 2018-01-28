@@ -524,6 +524,28 @@
                         view.unlock()
                     }
                 }, this)
+                this.socket.on('task:add', function (task, result) {
+                    var model
+                    if (result.body) {
+                        model = app.tasks.add([result.body])
+                    } else {
+                        model = app.tasks.get(task)
+                        model.fetch()
+                    }
+                }, this)
+                this.socket.on('task:update', function (task, result) {
+                    var model = app.tasks.get(task)
+                    if (model) {
+                        if (ready.body) {
+                            model.set(result.body)
+                        } else {
+                            model.fetch()
+                        }
+                    }
+                }, this)
+                this.socket.on('task:remove', function (task) {
+                    app.tasks.remove({id: task})
+                }, this)
             }
         },
         remove: function () {

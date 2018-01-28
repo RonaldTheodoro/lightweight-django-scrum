@@ -17,6 +17,8 @@ django-test-without-migrations = "*"
 django-model-utils = "*"
 django = "*"
 tornado = "*"
+tornado-redis = "*"
+redis = "*"
 
 
 [dev-packages]
